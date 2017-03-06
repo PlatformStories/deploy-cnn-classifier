@@ -1,0 +1,72 @@
+{
+    "name": "deploy-cnn-classifier",
+    "version": "0.0.2",
+    "description": "Deploy a trained convolutional neural network classifier on a set of polygons.",
+    "properties": {
+        "isPublic": true,
+        "timeout": 14400
+    },
+    "inputPortDescriptors": [
+        {
+            "name": "images",
+            "type": "directory",
+            "description": "Contains the image strips. The strips must be named after their catalog ids (ex- 1040010014BCA700.tif). Up to five image strips will be accepted as input.",
+            "required": true
+        },
+        {
+            "name": "model",
+            "type": "directory",
+            "description": "Contains the trained model that will be used to classify the polygons in geojson_file. This location should contain the model architecture (in json format) and the trained weights (in h5 format).",
+            "required": true
+        },
+        {
+            "name": "geojson",
+            "type": "directory",
+            "description": "Contains a geojson file with the polygons to be classified. Each polygon should have an 'image_id' property containing the catalog id of the associated image strip.",
+            "required": true
+        },
+        {
+            "name": "classes",
+            "type": "string",
+            "description": "The classes to sort each polygon into. Different class names should be separated by commas and must be in the same order that the model was trained on (e.g- 'No swimming pool, Swimming pool'). If this is omitted the classes will be numerical.",
+            "required": false
+        },
+        {
+            "name": "bit_depth",
+            "type": "string",
+            "description": "Int: number of bits in the input imagery. Defaults to 8",
+            "required": false
+        },
+        {
+            "name": "min_side_dim",
+            "type": "string",
+            "description": "Int: minimum acceptable side dimension (in pixels) of polygons to classify. Defaults to 0.",
+            "required": false
+        },
+        {
+            "name": "max_side_dim",
+            "type": "string",
+            "description": "Int: maximum acceptable side dimension (in pixels) of polygons to classify. If larger than the input shape to the network, all chips will be downsamples to match the input shape. Only use this feature if the model was also trained on downsampled imagery. Defaults to size of input to network.",
+            "required": false
+        }
+
+    ],
+    "outputPortDescriptors": [
+        {
+            "name": "classified_geojson",
+            "type": "directory",
+            "description": "Contains the classified polygons in a geojson file."
+        }
+    ],
+    "containerDescriptors": [
+        {
+            "type": "DOCKER",
+            "properties": {
+                "image": "platformstories/deploy-cnn-classifier",
+                "domain": "nvidiagpu"
+            },
+            "command": "python /deploy-cnn-classifier.py",
+            "isPublic": true
+        }
+    ]
+}
