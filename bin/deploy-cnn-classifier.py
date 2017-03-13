@@ -2,9 +2,7 @@ import os, time, ast
 import json, geojson, geoio
 import numpy as np
 from shutil import copyfile, move
-from pool_net import PoolNet
-from mltools import geojson_tools as gt
-from mltools import data_extractors as de
+from net import VggNet
 from gbdx_task_interface import GbdxTaskInterface
 
 start = time.time()
@@ -91,13 +89,13 @@ class DeployCnnClassifier(GbdxTaskInterface):
 
         # Load trained model
         if self.classes:
-            p = PoolNet(classes=self.classes, model_name='model')
+            m = Net(classes=self.classes, model_name='model')
         else:
-            p = PoolNet(model_name='model')
-        p.model.load_weights(self.weights)
+            m = Net(model_name='model')
+        m.model.load_weights(self.weights)
 
         # Format input_shape and max_side_dim
-        inp_shape = p.input_shape[-3:]
+        inp_shape = m.input_shape[-3:]
 
         if not self.max_side_dim:
             self.max_side_dim = inp_shape[-1]
@@ -121,7 +119,7 @@ class DeployCnnClassifier(GbdxTaskInterface):
             num_classes = False
 
         # Classify file
-        p.classify_geojson(self.geoj, output_name=out_name, numerical_classes=num_classes,
+        m.classify_geojson(self.geoj, output_name=out_name, numerical_classes=num_classes,
                            max_side_dim=self.max_side_dim, min_side_dim=self.min_side_dim,
                            chips_in_mem=1000, bit_depth=self.bit_depth)
 

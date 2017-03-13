@@ -1,4 +1,4 @@
-FROM naldeborgh/gpu-base
+FROM nvidia/cuda:7.5-cudnn4-devel
 
 MAINTAINER Nikki Aldeborgh <nikki.aldeborgh@digitalglobe.com>
 
@@ -14,7 +14,6 @@ RUN apt-get update -y && apt-get install -y \
     ipython \
     libspatialite-dev \
     sqlite3 \
-    git \
     libpq-dev \
     libcurl4-gnutls-dev \
     libproj-dev \
@@ -26,8 +25,8 @@ RUN apt-get update -y && apt-get install -y \
     libhdf4-alt-dev \
     libhdf5-serial-dev \
     vim \
+    git \
     wget
-
 
 RUN pip install gdal numpy ephem psycopg2 h5py theano geojson sklearn keras
 RUN pip install git+https://github.com/DigitalGlobe/mltools
