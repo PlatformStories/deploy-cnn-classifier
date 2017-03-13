@@ -2,16 +2,19 @@ FROM nvidia/cuda:7.5-cudnn4-devel
 
 MAINTAINER Nikki Aldeborgh <nikki.aldeborgh@digitalglobe.com>
 
-RUN apt-get update -y && apt-get install -y \
-    software-properties-common \
-    python-software-properties \
+RUN apt-get -y update && apt-get -y \
+    install python \
     build-essential \
-    python \
-    python-dev \
-    python-numpy \
+    python-software-properties \
+    software-properties-common \
+    ipython \
     python-pip \
     python-scipy \
-    ipython \
+    python-numpy \
+    python-dev \
+    gdal-bin \
+    python-gdal \
+    libgdal-dev \
     libspatialite-dev \
     sqlite3 \
     libpq-dev \
@@ -24,9 +27,10 @@ RUN apt-get update -y && apt-get install -y \
     libspatialite-dev \
     libhdf4-alt-dev \
     libhdf5-serial-dev \
-    vim \
     git \
-    wget
+    wget \
+    vim \
+    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN pip install gdal numpy ephem psycopg2 h5py theano geojson sklearn keras
 RUN pip install git+https://github.com/DigitalGlobe/mltools
