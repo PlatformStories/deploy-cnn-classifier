@@ -1,6 +1,8 @@
 import os, time, ast
 import json, geojson, geoio
 import numpy as np
+
+from mltools import geojson_tools as gt
 from shutil import copyfile, move
 from net import VggNet
 from gbdx_task_interface import GbdxTaskInterface
@@ -89,9 +91,9 @@ class DeployCnnClassifier(GbdxTaskInterface):
 
         # Load trained model
         if self.classes:
-            m = Net(classes=self.classes, model_name='model')
+            m = VggNet(classes=self.classes, model_name='model')
         else:
-            m = Net(model_name='model')
+            m = VggNet(model_name='model')
         m.model.load_weights(self.weights)
 
         # Format input_shape and max_side_dim
