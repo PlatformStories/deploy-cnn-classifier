@@ -1,7 +1,7 @@
 import os, time, ast
 import json, geojson, geoio
 import numpy as np
-import geojsontools as gt
+import dataextractors as de
 
 from shutil import copyfile, move
 from net import VggNet
@@ -111,7 +111,7 @@ class DeployCnnClassifier(GbdxTaskInterface):
                                 'same number of bands as all input images.')
 
         # Filter shapefile
-        gt.filter_polygon_size(self.geoj, output_file=self.geoj,
+        de.filter_polygon_size(self.geoj, output_file=self.geoj,
                                max_side_dim=self.max_side_dim,
                                min_side_dim=self.min_side_dim)
 

@@ -285,9 +285,9 @@ class VggNet(object):
             print 'Getting validation data...\n'
             valX, valY = get_chips(val_data, min_side_dim=min_side_dim,
                                    max_side_dim=max_side_dim, classes=self.classes,
-                                   normalize=True, return_labels=True, mask=True,
-                                   bit_depth=bit_depth, show_percentage=True,
-                                   assert_all_valid=True, resize_dim=resize_dim)
+                                   normalize=True, mask=True, bit_depth=bit_depth,
+                                   show_percentage=True, assert_all_valid=True,
+                                   resize_dim=resize_dim)
 
             validation_data = (valX, valY)
 
@@ -315,9 +315,9 @@ class VggNet(object):
                 # Get chips from batch
                 X, Y = get_chips(this_batch, min_side_dim=min_side_dim,
                                  max_side_dim=max_side_dim, classes=self.classes,
-                                 normalize=True, return_labels=True, mask=True,
-                                 bit_depth=bit_depth, show_percentage=False,
-                                 assert_all_valid=True, resize_dim=resize_dim)
+                                 normalize=True, mask=True, bit_depth=bit_depth,
+                                 show_percentage=False, assert_all_valid=True,
+                                 resize_dim=resize_dim)
 
                 # Save weights if this is the final batch in the epoch
                 if batch_start == range(0, train_size, chips_per_batch)[-1]:
@@ -437,8 +437,7 @@ class VggNet(object):
             this_batch = features[ix: (ix + chips_in_mem)]
             try:
                 X = get_chips(this_batch, min_side_dim=min_side_dim,
-                              max_side_dim=max_side_dim, classes=self.classes,
-                              normalize=True, return_labels=False,
+                              max_side_dim=max_side_dim, normalize=True,
                               bit_depth=bit_depth, mask=True, show_percentage=False,
                               assert_all_valid=True, resize_dim=resize_dim)
 
