@@ -1,8 +1,8 @@
 import os, time, ast
 import json, geojson, geoio
 import numpy as np
+import geojsontools as gt
 
-from mltools import geojson_tools as gt
 from shutil import copyfile, move
 from net import VggNet
 from gbdx_task_interface import GbdxTaskInterface

@@ -1,6 +1,6 @@
 {
     "name": "deploy-cnn-classifier",
-    "version": "0.0.2",
+    "version": "0.0.4",
     "description": "Deploy a trained convolutional neural network classifier on a set of polygons.",
     "properties": {
         "isPublic": true,
