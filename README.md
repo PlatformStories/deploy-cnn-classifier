@@ -17,7 +17,7 @@ Here we run though a sample execution of the deploy-cnn-classifier task. We will
 
     gbdx = Interface()
 
-    input_location = 's3://gbd-customer-data/58600248-2927-4523-b44b-5fec3d278c09/platform-stories/deploy-cnn-classifier'
+    input_location = 's3://gbd-customer-data/32cbab7a-4307-40c8-bb31-e2de32f940c2/platform-stories/deploy-cnn-classifier'
     ```
 
 2. Create a task instance and set the required [inputs](#inputs):  
